@@ -1,14 +1,14 @@
 class Card < ActiveRecord::Base
 	has_many :statements
-	belongs_to :users
+	belongs_to :users, optional: true
 
 	def active?
 		self.status == "active" ? true : false
 	end
 
 	def statement_date=(date)
-		if date.present? && date < 31
-			self.statement_date = date
+		if date.between?(0,5)
+			write_attribute(:statement_date, date)
 		end
 	end
 
@@ -16,7 +16,7 @@ class Card < ActiveRecord::Base
 		if self.renew_fees_waiver < self.ytd_usage
 			value = 0 
 		else
-			months=(DateTime.strptime(self.next_renew_date, "%Y-%m-%d %H:%M:%S") - DateTime.now).to_i/30
+			months=(DateTime.strptime(self.next_renew_date, "%Y-%m-%d") - DateTime.now).to_i/30
 			value = (self.renew_fees_waiver-self.ytd_usage)/months
 		end
 		value
@@ -43,6 +43,27 @@ class Card < ActiveRecord::Base
 	def activate
 		self.status = "active"
 		self.save!
+	end
+
+	def target?
+		self.renew_fees > 0 && self.renew_fees_waiver > 0
+	end
+
+	def mandatory_renewal_fees?
+		self.renew_fees > 0 && self.renew_fees_waiver == 0
+	end
+
+	def renewal_fees?
+		self.renew_fees > 0
+	end
+
+	def update_ytd(usage)
+		ytd=self.ytd_usage+usage
+		write_attribute(:ytd_usage, ytd)
+	end
+
+	def reset_ytd
+		write_attribute(:ytd_usage, 0)
 	end
 
 end

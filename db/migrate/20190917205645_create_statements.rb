@@ -3,8 +3,8 @@ class CreateStatements < ActiveRecord::Migration[5.2]
 		create_table :statements do |t|
 			t.integer :card_id, :null => false
 			t.string :statement_month_year, :null => false
-			t.string :statement_generation_date, :null => false
-			t.string :statement_due_date, :null => false
+			t.datetime :statement_generation_date, :null => false
+			t.datetime :statement_due_date, :null => false
 			t.string :payment_date
 			t.float :previous_balance, :null => false, :default => 0.0
 			t.float :current_expense, :null => false, :default => 0.0

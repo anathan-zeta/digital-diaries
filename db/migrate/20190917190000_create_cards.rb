@@ -6,10 +6,11 @@ class CreateCards < ActiveRecord::Migration[5.2]
 			t.string :card_subtype
 			t.string :bank, :null=>false
 			t.integer :user_id, :null => false
-			t.integer :number, :null=>false, :default => 9999
+			t.integer :first_four_number, :null=>false, :default => 9999
+			t.integer :last_four_number, :null=>false, :default => 9999
 			t.integer :limit, :null=>false, :default=>0
 			t.integer :exp_date, :null=>false, :default=>1299
-			t.string :next_renew_date, :null=>false, :default=>""
+			t.datetime :next_renew_date, :null=>false, :default=>"2099-12-31 00:00:00"
 			t.float :joining_fees, :null=>false, :default=>0
 			t.float :renew_fees, :null=>false, :default=>0
 			t.float :renew_fees_waiver, :null=>false, :default=>0

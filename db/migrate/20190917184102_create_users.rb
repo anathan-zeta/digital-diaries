@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
 			t.string :access_key, :null => false
 			t.string :password, :null => false
 			t.string :status, :null => false, :default => "inactive"
+			t.timestamps
 			t.index ["uid"], name: "index_on_uid", unique: true
 			t.index ["email"], name: "index_on_email", unique: true
 			t.index ["phone"], name: "index_on_phone", unique: true
@@ -17,3 +18,4 @@ class CreateUsers < ActiveRecord::Migration[5.2]
 		end
 	end
 end
+
