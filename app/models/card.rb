@@ -1,7 +1,7 @@
 class Card < ActiveRecord::Base
+	belongs_to :user
 	has_many :statements
-	belongs_to :users, optional: true
-
+	
 	def active?
 		self.status == "active" ? true : false
 	end
@@ -36,6 +36,7 @@ class Card < ActiveRecord::Base
 	end
 
 	def deactivate
+		write_attribute(:ytd_usage, ytd)
 		self.status = "inactive"
 		self.save!
 	end
@@ -58,7 +59,12 @@ class Card < ActiveRecord::Base
 	end
 
 	def update_ytd(usage)
-		ytd=self.ytd_usage+usage
+		ytd = self.ytd_usage+usage
+		write_attribute(:ytd_usage, ytd)
+	end
+
+	def reversal_ytd(usage)
+		ytd = self.ytd_usage-usage
 		write_attribute(:ytd_usage, ytd)
 	end
 
