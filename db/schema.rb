@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_221229) do
+ActiveRecord::Schema.define(version: 2019_09_20_212801) do
 
   create_table "bank_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -23,6 +23,45 @@ ActiveRecord::Schema.define(version: 2019_09_19_221229) do
     t.string "status", default: "inactive", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_on_user_id"
+  end
+
+  create_table "budget_expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "budget_id", null: false
+    t.float "planned_allotment_amount", default: 0.0, null: false
+    t.float "final_allotment_amount", default: 0.0, null: false
+    t.float "spent_amount", default: 0.0, null: false
+    t.float "balance", default: 0.0, null: false
+    t.string "status", default: "inactive", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["budget_id"], name: "index_on_budget_id"
+  end
+
+  create_table "budget_incomes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "budget_id", null: false
+    t.float "planned_amount", default: 0.0, null: false
+    t.float "final_amount", default: 0.0, null: false
+    t.string "status", default: "inactive", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["budget_id"], name: "index_on_budget_id"
+  end
+
+  create_table "budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.float "planned_income", default: 0.0, null: false
+    t.float "actual_income", default: 0.0, null: false
+    t.float "planned_expense", default: 0.0, null: false
+    t.float "actual_expense", default: 0.0, null: false
+    t.string "status", default: "inactive", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_on_user_id"
   end
 

@@ -1,8 +1,14 @@
 class Source < ActiveRecord::Base
 	belongs_to :bank_account
-	def flush_balance=(bal)
-		self.bank_account = 
-		final=self.balance + bal
-		write_attribute(:balance, final)
+
+	def income(amount)
+		self.balance += amount
+		self.bank_account.income(amount)
 	end
+
+	def expense(amount)
+		self.balance -= amount
+		self.bank_account.expense(amount)
+	end
+
 end

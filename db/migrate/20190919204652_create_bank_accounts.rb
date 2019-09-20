@@ -1,5 +1,4 @@
 class CreateBankAccounts < ActiveRecord::Migration[5.2]
-	CREATE_TIMESTAMP = 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP'
 	def change
 		create_table :bank_accounts do |t|
 			t.string :name, :null => false

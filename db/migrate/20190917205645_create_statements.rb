@@ -14,6 +14,7 @@ class CreateStatements < ActiveRecord::Migration[5.2]
 			t.float :available_credit_limit, :null => false, :default => 0.0
 			t.float :total_payment_done, :null => false, :default => 0.0
 			t.string :payment_status, :null => false, :default => "not_paid"
+			t.timestamps
 			t.index ["card_id"], name: "index_on_card_id"
 		end
 	end
