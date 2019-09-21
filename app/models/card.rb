@@ -2,6 +2,13 @@ class Card < ActiveRecord::Base
 	belongs_to :user
 	has_many :statements
 	
+	module CARD_TYPE
+	    CREDIT = 'credit'
+	    DEBIT = 'debit'
+	    FOOD_CARD = 'food_card'
+	    FOREX = 'forex'
+ 	end
+
 	def active?
 		self.status == "active" ? true : false
 	end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_20_212801) do
+ActiveRecord::Schema.define(version: 201909212312011) do
 
   create_table "bank_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -24,6 +24,25 @@ ActiveRecord::Schema.define(version: 2019_09_20_212801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_on_user_id"
+  end
+
+  create_table "budget_expense_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "budget_expense_id", null: false
+    t.string "status", default: "inactive", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["budget_expense_id"], name: "index_on_budget_expense_id"
+  end
+
+  create_table "budget_expense_transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "budget_expense_category_id", null: false
+    t.float "amount", default: 0.0, null: false
+    t.datetime "transaction_date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["budget_expense_category_id"], name: "index_on_budget_expense_category_id"
   end
 
   create_table "budget_expenses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
