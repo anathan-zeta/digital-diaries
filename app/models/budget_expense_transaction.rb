@@ -1,4 +1,4 @@
 class BudgetExpenseTransactions < ActiveRecord::Base
-	belongs_to :budget_expense_categories
-	belongs_to :budget_buckets
+	belongs_to :budget_expense_category
+	belongs_to :budget_bucket
 end
