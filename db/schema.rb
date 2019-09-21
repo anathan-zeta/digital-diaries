@@ -69,6 +69,20 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.index ["budget_id"], name: "index_on_budget_id"
   end
 
+  create_table "budgetbuckets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "bank_id"
+    t.integer "card_id"
+    t.integer "other_income_id"
+    t.string "bucket_type", null: false
+    t.float "amount", default: 0.0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bank_id"], name: "index_on_bank_id"
+    t.index ["card_id"], name: "index_on_card_id"
+    t.index ["other_income_id"], name: "index_on_other_income_id"
+  end
+
   create_table "budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.integer "user_id", null: false
@@ -104,6 +118,16 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.string "status", default: "inactive", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_on_user_id"
+  end
+
+  create_table "other_incomes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.float "amount", default: 0.0, null: false
+    t.string "status", default: "inactive", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_on_user_id"
   end
 

@@ -1,7 +1,8 @@
 class Card < ActiveRecord::Base
 	belongs_to :user
+	belongs_to :budget_bucket
 	has_many :statements
-	
+
 	module CARD_TYPE
 	    CREDIT = 'credit'
 	    DEBIT = 'debit'
