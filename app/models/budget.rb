@@ -2,7 +2,7 @@ class Budget < ActiveRecord::Base
 	belongs_to :user
 	has_many :budget_incomes
 	has_many :budget_expenses
-	has_one :budget_bucket
+	has_many :budget_buckets
 	def new_income(amount)
 		self.actual_income += amount
 	end
