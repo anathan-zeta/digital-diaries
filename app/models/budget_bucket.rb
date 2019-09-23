@@ -1,7 +1,7 @@
 class BudgetBucket < ActiveRecord::Base
-	has_many :cards
-	has_many :bank_accounts
-	has_many :other_incomes
+	belongs_to :card
+	belongs_to :bank_account
+	belongs_to :other_income
 	has_many :budget_incomes
 	has_many :budget_expense_transactions
 	belongs_to :budget

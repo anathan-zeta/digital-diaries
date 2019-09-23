@@ -27,4 +27,10 @@ class Budget < ActiveRecord::Base
 	def remove_planned_expense(amount)
 		self.planned_expense -= amount
 	end
+	def expense_plan_on_track?
+		budget.budget_incomes.sum(:final_amount) >= budget.budget_expenses.sum(:final_allotment_amount)
+	end
+	def expense_on_track?
+		budget_income=budget.budget_incomes.sum(:final_amount) >= budget.budget_expenses.sum(:spent_amount)
+	end
 end

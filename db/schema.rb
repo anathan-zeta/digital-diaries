@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.string "status", default: "inactive", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "amount", default: 0.0, null: false
     t.index ["budget_expense_id"], name: "index_on_budget_expense_id"
   end
 
@@ -58,6 +59,9 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.datetime "transaction_date", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "budget_bucket_id", null: false
+    t.string "status", default: "inactive", null: false
+    t.index ["budget_bucket_id"], name: "index_on_budget_bucket_id"
     t.index ["budget_expense_category_id"], name: "index_on_budget_expense_category_id"
   end
 

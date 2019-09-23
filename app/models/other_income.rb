@@ -1,4 +1,4 @@
 class OtherIncome < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :budget_bucket
+	has_many :budget_buckets
 end

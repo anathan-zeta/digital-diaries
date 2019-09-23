@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :budget_bucket
+	has_many :budget_buckets
 	has_many :statements
 
 	module CARD_TYPE

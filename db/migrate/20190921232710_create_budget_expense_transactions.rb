@@ -5,10 +5,8 @@ class CreateBudgetExpenseTransactions < ActiveRecord::Migration[6.0]
 			t.integer :budget_expense_category_id, :null => false
 			t.float :amount, :null => false, :default => 0.0
 			t.datetime :transaction_date, :null => false
-			t.integer :budget_bucket_id, :null => false
 			t.timestamps
 			t.index ["budget_expense_category_id"], name: "index_on_budget_expense_category_id"
-			t.index ["budget_bucket_id"], name: "index_on_budget_bucket_id"
 		end
 	end
 end
