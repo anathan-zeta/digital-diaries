@@ -2,6 +2,7 @@ class Card < ActiveRecord::Base
 	belongs_to :user
 	has_many :budget_buckets
 	has_many :statements
+	has_many :transactions, as: :source
 
 	module CARD_TYPE
 	    CREDIT = 'credit'

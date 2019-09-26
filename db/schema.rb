@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 201909212312011) do
+ActiveRecord::Schema.define(version: 2019_09_24_082322) do
 
   create_table "bank_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.string "status", default: "inactive", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "amount", default: 0.0, null: false
     t.index ["budget_expense_id"], name: "index_on_budget_expense_id"
   end
 
@@ -165,6 +164,27 @@ ActiveRecord::Schema.define(version: 201909212312011) do
     t.float "total_payment_done", default: 0.0, null: false
     t.string "payment_status", default: "not_paid", null: false
     t.index ["card_id"], name: "index_on_card_id"
+  end
+
+  create_table "transactions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "amount", default: 0.0, null: false
+    t.datetime "date", null: false
+    t.string "transaction_type", null: false
+    t.string "status", default: "inactive", null: false
+    t.integer "budget_id"
+    t.integer "budget_bucket_id"
+    t.integer "budget_expense_id"
+    t.integer "budget_expense_category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "source_type"
+    t.bigint "source_id"
+    t.index ["budget_bucket_id"], name: "index_budget_bucket_id"
+    t.index ["budget_expense_category_id"], name: "index_on_budget_expense_category_id"
+    t.index ["budget_expense_id"], name: "index_on_budget_expense_id"
+    t.index ["budget_id"], name: "index_on_budget_id"
+    t.index ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

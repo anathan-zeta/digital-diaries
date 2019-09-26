@@ -3,6 +3,7 @@ class Budget < ActiveRecord::Base
 	has_many :budget_incomes
 	has_many :budget_expenses
 	has_many :budget_buckets
+	has_many :transactions
 	def new_income(amount)
 		self.actual_income += amount
 	end

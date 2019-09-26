@@ -4,6 +4,7 @@ class BudgetBucket < ActiveRecord::Base
 	belongs_to :other_income
 	has_many :budget_incomes
 	has_many :budget_expense_transactions
+	has_many :transactions
 	belongs_to :budget
 
 	def add_income(amount)
