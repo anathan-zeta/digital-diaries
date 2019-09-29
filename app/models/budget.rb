@@ -34,4 +34,24 @@ class Budget < ActiveRecord::Base
 	def expense_on_track?
 		budget_income=budget.budget_incomes.sum(:final_amount) >= budget.budget_expenses.sum(:spent_amount)
 	end
+
+	def planned_income_expense_diff
+		self.budget_incomes.sum(:final_amount) - self.budget_expenses.sum(:planned_allotment_amount)
+	end
+
+	def income_amount
+		self.budget_incomes.sum(:final_amount)
+	end
+
+	def expense_amount
+		self.transactions.where(transaction_type: "debit", status: "active").sum(:amount) - (self.transactions.where(transaction_type: "credit", status: "status").sum(:amount) + self.transactions.where(transaction_type: "reversed", status: "active").sum(:amount))
+	end
+
+	def income_expense_diff
+		self.income_amount - self.expense_amount
+	end
+
+	def expense_allotment_amount
+		self.budget_expenses.sum(:final_allotment_amount)
+	end
 end

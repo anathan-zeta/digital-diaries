@@ -1,7 +1,5 @@
 class BudgetBucket < ActiveRecord::Base
-	belongs_to :card
-	belongs_to :bank_account
-	belongs_to :other_income
+	
 	has_many :budget_incomes
 	has_many :budget_expense_transactions
 	has_many :transactions
@@ -9,5 +7,17 @@ class BudgetBucket < ActiveRecord::Base
 
 	def add_income(amount)
 		self.amount += amount
+	end
+
+	def balance
+		self.budget_incomes.sum(:final_amount) - (self.transactions.where(status: "active", transaction_type: "debit").sum(:amount) - self.transactions.where(status: "active", transaction_type: "credit").sum(:amount))
+	end
+
+	def income
+		self.budget_incomes.sum(:final_amount)
+	end
+
+	def expense
+		self.transactions.where(status: "active", transaction_type: "debit").sum(:amount) - self.transactions.where(status: "active", transaction_type: "credit").sum(:amount)
 	end
 end

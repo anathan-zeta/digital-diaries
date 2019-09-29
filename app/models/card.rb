@@ -1,6 +1,6 @@
 class Card < ActiveRecord::Base
 	belongs_to :user
-	has_many :budget_buckets
+	has_many :budget_buckets, as: :source
 	has_many :statements
 	has_many :transactions, as: :source
 
@@ -79,6 +79,13 @@ class Card < ActiveRecord::Base
 
 	def reset_ytd
 		write_attribute(:ytd_usage, 0)
+	end
+
+	def current_statement_duration
+		current_day = DateTime.now.day
+		if current_day > self.statement_date
+			start_date = DateTime.strptime('2001-02-03 00:00:00', '%Y-%m-%d %H:%M:%S')
+		end
 	end
 
 end
